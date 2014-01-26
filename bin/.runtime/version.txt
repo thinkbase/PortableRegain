@@ -1,0 +1,12 @@
+regain_v2.0.4-STABLE_server
+
+apache-tomcat-7.0.50
+    Remove all default webapps:
+        tomcat/webapps/docs
+        tomcat/webapps/examples
+        tomcat/webapps/host-manager
+        tomcat/webapps/manager
+        tomcat/webapps/ROOT
+
+IKAnalyzer2012_u6
+    Remove docs ( Javadoc )
