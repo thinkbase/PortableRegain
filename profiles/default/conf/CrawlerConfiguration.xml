@@ -42,7 +42,7 @@
       NOTE: In Windows, ":" must be encoded to "%3A", for example
     <start parse="true" index="true">file://g%3A/thinkbase.net/github/AdminShells</start>
      -->
-    <start parse="true" index="true">${FILE_URL_PORTABLE_ROOT}/../AdminShells</start>
+    <start parse="true" index="true">${PORTABLE_ROOT_URL}/../AdminShells</start>
     <!-- HTML parsing -->
     <start parse="true" index="true">http://thinkbase.net/main</start>
     <start parse="true" index="true">http://thinkbase.net/trac</start>
@@ -74,6 +74,10 @@
     <prefix>http://www.mydomain.de/some/dynamic/content/</prefix>
     <regex>.*/backup/[^/]*</regex>
     -->
+    <regex>\.git.*</regex>
+    <regex>\.svn.*</regex>
+    <regex>\.cvs.*</regex>
+    
     <regex>.*/wiki/Trac.*</regex>
     <regex>.*/wiki/Wiki.*</regex>
     <regex>.*/wiki/Zh.*</regex>
@@ -94,6 +98,7 @@
     <regex>.*\/login.*</regex>
     <regex>.*\/reset_password.*</regex>
     <regex>.*\/newticket.*</regex>
+    <regex>.*\/search.*</regex>
 
     <prefix>http://thinkbase.net/main/changeset/</prefix>
     <prefix>http://thinkbase.net/trac/changeset/</prefix>
@@ -119,7 +124,7 @@
  +-->
   <searchIndex>
     <!-- The directory where the index should be located -->
-    <dir>data</dir>
+    <dir>${PROFILE_HOME}/data</dir>
 
   <!--
    | Specifies the analyzer type to use.

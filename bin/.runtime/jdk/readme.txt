@@ -1,0 +1,1 @@
+You can copy jdk here, or else set the JAVA_HOME environment variable instead.
