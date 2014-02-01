@@ -39,14 +39,12 @@
  +-->
   <startlist>
   <!-- Directory parsing -->
-  <!--
-  <start parse="true" index="false">file://c:/Eigene Dateien</start>
-  -->
+  <start parse="true" index="true">file://d%3A/MyDoc/QQ/1279068110/FileRecv</start>
 
   <!-- HTML parsing -->
-  <!--
-  <start parse="true" index="true">http://www.mydomain.de/some/path/</start>
-  -->
+  <start parse="true" index="true">http://dev.bokesoft.com:9202/sandbox/</start>
+  <start parse="true" index="true">http://dev.bokesoft.com:9202/cnaf/</start>
+
   <!-- IMAP post box parsing -->
   <!--
 	<start parse="true" index="true">imaps://imap.googlemail.com:993/</start>  
@@ -60,9 +58,8 @@
  | Enter the domain of your web site here.
  +-->
   <whitelist>
-    <prefix name="file">file://</prefix>
-    <prefix>http://www.mydomain.de</prefix>
-    <prefix>imaps://imap.googlemail.com</prefix>
+    <prefix>file://d%3A/</prefix>
+    <prefix>http://dev.bokesoft.com:9202/</prefix>
   </whitelist>
 
 
@@ -75,8 +72,29 @@
   <!--
   <prefix>http://www.mydomain.de/some/dynamic/content/</prefix>
   <regex>.*/backup/[^/]*</regex>
-  <regex>.*/\.svn/.*</regex>
   -->
+  <regex>.*/wiki/Trac.*</regex>
+  <regex>.*/wiki/Wiki.*</regex>
+  <regex>.*/wiki/Zh.*</regex>
+  <regex>.*\?action.*</regex>
+  <regex>.*\?version.*</regex>
+  <regex>.*\?rev.*</regex>
+  <regex>.*\?limit.*</regex>
+  <regex>.*\?cversion.*</regex>
+  <regex>.*\?parents.*</regex>
+  <regex>.*\?format.*</regex>
+  <regex>.*\?order.*</regex>
+  <regex>.*\?desc.*</regex>
+  <regex>.*\?annotate.*</regex>
+  <regex>.*\?.*</regex>
+  <regex>.*\/query.*</regex>
+  <regex>.*\/report.*</regex>
+  <regex>.*\/timeline.*</regex>
+  <regex>.*\/login.*</regex>
+  <regex>.*\/reset_password.*</regex>
+  <regex>.*\/newticket.*</regex>
+  
+  <prefix>http://dev.bokesoft.com:9202/cnaf/changeset/</prefix>
   </blacklist>
 
 
@@ -118,17 +136,21 @@
    | Get more information at:
    | http://lucene.apache.org/java/3_1_0/api/contrib-analyzers/index.html?overview-summary.html
    +-->
-    <analyzerType>german</analyzerType>
+<!--    <analyzerType>org.apache.lucene.analysis.cjk.CJKAnalyzer</analyzerType>  -->
+<!--    <analyzerType>english</analyzerType> -->
+    <analyzerType>net.thinkbase.regain.analyzer.lucene.StopwordsCompatibleIKAnalyzer</analyzerType>
 
   <!--
    | Contains all words that should not be indexed.
    | Separate the words by a blank.
    +-->
+  <!--
     <stopwordList>
     einer eine eines einem einen der die das dass daß du er sie es was wer wie
     wir und oder ohne mit am im in aus auf ist sein war wird ihr ihre ihres als
     für von mit dich dir mich mir mein sein kein durch wegen wird
     </stopwordList>
+  -->
   <!-- German long: from https://github.com/jdf/cue.language/ (/src/cue/lang/stop/)
   <stopwordList>
 	aber alle allem allen aller alles als also am an ander andere anderem anderen
@@ -163,7 +185,7 @@
    would yet you your
   </stopwordList>
   -->
-   <!-- English long
+   <!-- English long -->
   <stopwordList>
     a about an are as at be by com de en for from how in is it la of on or
     that the this to was what when where who will with und the www a about above
@@ -205,7 +227,7 @@
     thing things true year bad big close difficult easy empty full good little
     long ready open short tall
   </stopwordList>
-  -->
+  <!-- -->
   <!-- italian:
   <stopwordList>
     di a da in con su per tra fra io tu egli ella essa noi voi essi loro che cui
@@ -264,6 +286,14 @@
  |   ... to configure preparators
  +-->
   <preparatorList>
+    <preparator enabled="true">
+      <class>.PoiMsOfficePreparator</class>
+    </preparator>
+
+    <preparator enabled="true">
+      <class>.FilenamePreparator</class>
+    </preparator>
+
   <!--
    | Enable this preparator if you want to use the text extractor of
    | Microsoft Windows. This preparator is able to read tons of file formats.
@@ -312,7 +342,7 @@
       <class>.SwingRtfPreparator</class>
     </preparator>
 
-  <!--
+    <!--
    | This preparator may be used if you have an external program that can
    | extract text. It's disabled by default.
    +-->
