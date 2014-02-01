@@ -21,10 +21,10 @@
  +-->
   <proxy>
   <!--
-  <host>proxy</host>
-  <port>3128</port>
-  <user>HansWurst</user>
-  <password>gkxy23</password>
+    <host>proxy</host>
+    <port>3128</port>
+    <user>HansWurst</user>
+    <password>gkxy23</password>
   -->
   </proxy>
 
@@ -38,17 +38,18 @@
  |       them, then don't forget to uncomment them.
  +-->
   <startlist>
-  <!-- Directory parsing -->
-  <start parse="true" index="true">file://d%3A/MyDoc/QQ/1279068110/FileRecv</start>
-
-  <!-- HTML parsing -->
-  <start parse="true" index="true">http://dev.bokesoft.com:9202/sandbox/</start>
-  <start parse="true" index="true">http://dev.bokesoft.com:9202/cnaf/</start>
-
-  <!-- IMAP post box parsing -->
-  <!--
-	<start parse="true" index="true">imaps://imap.googlemail.com:993/</start>  
-  -->
+    <!-- Directory parsing
+      NOTE: In Windows, ":" must be encoded to "%3A", for example
+    <start parse="true" index="true">file://g%3A/thinkbase.net/github/AdminShells</start>
+     -->
+    <start parse="true" index="true">${FILE_URL_PORTABLE_ROOT}/../AdminShells</start>
+    <!-- HTML parsing -->
+    <start parse="true" index="true">http://thinkbase.net/main</start>
+    <start parse="true" index="true">http://thinkbase.net/trac</start>
+    <!-- IMAP post box parsing -->
+    <!--
+    <start parse="true" index="true">imaps://imap.googlemail.com:993/</start>  
+    -->
   </startlist>
 
 
@@ -58,8 +59,8 @@
  | Enter the domain of your web site here.
  +-->
   <whitelist>
-    <prefix>file://d%3A/</prefix>
-    <prefix>http://dev.bokesoft.com:9202/</prefix>
+    <prefix>file://</prefix>
+    <prefix>http://thinkbase.net/</prefix>
   </whitelist>
 
 
@@ -69,32 +70,33 @@
  | Enter sub directories you don't want to be indexed here.
  +-->
   <blacklist>
-  <!--
-  <prefix>http://www.mydomain.de/some/dynamic/content/</prefix>
-  <regex>.*/backup/[^/]*</regex>
-  -->
-  <regex>.*/wiki/Trac.*</regex>
-  <regex>.*/wiki/Wiki.*</regex>
-  <regex>.*/wiki/Zh.*</regex>
-  <regex>.*\?action.*</regex>
-  <regex>.*\?version.*</regex>
-  <regex>.*\?rev.*</regex>
-  <regex>.*\?limit.*</regex>
-  <regex>.*\?cversion.*</regex>
-  <regex>.*\?parents.*</regex>
-  <regex>.*\?format.*</regex>
-  <regex>.*\?order.*</regex>
-  <regex>.*\?desc.*</regex>
-  <regex>.*\?annotate.*</regex>
-  <regex>.*\?.*</regex>
-  <regex>.*\/query.*</regex>
-  <regex>.*\/report.*</regex>
-  <regex>.*\/timeline.*</regex>
-  <regex>.*\/login.*</regex>
-  <regex>.*\/reset_password.*</regex>
-  <regex>.*\/newticket.*</regex>
-  
-  <prefix>http://dev.bokesoft.com:9202/cnaf/changeset/</prefix>
+    <!--
+    <prefix>http://www.mydomain.de/some/dynamic/content/</prefix>
+    <regex>.*/backup/[^/]*</regex>
+    -->
+    <regex>.*/wiki/Trac.*</regex>
+    <regex>.*/wiki/Wiki.*</regex>
+    <regex>.*/wiki/Zh.*</regex>
+    <regex>.*\?action.*</regex>
+    <regex>.*\?version.*</regex>
+    <regex>.*\?rev.*</regex>
+    <regex>.*\?limit.*</regex>
+    <regex>.*\?cversion.*</regex>
+    <regex>.*\?parents.*</regex>
+    <regex>.*\?format.*</regex>
+    <regex>.*\?order.*</regex>
+    <regex>.*\?desc.*</regex>
+    <regex>.*\?annotate.*</regex>
+    <regex>.*\?.*</regex>
+    <regex>.*\/query.*</regex>
+    <regex>.*\/report.*</regex>
+    <regex>.*\/timeline.*</regex>
+    <regex>.*\/login.*</regex>
+    <regex>.*\/reset_password.*</regex>
+    <regex>.*\/newticket.*</regex>
+
+    <prefix>http://thinkbase.net/main/changeset/</prefix>
+    <prefix>http://thinkbase.net/trac/changeset/</prefix>
   </blacklist>
 
 
@@ -116,8 +118,8 @@
  | The preferences for the search index.
  +-->
   <searchIndex>
-  <!-- The directory where the index should be located -->
-    <dir>searchindex</dir>
+    <!-- The directory where the index should be located -->
+    <dir>data</dir>
 
   <!--
    | Specifies the analyzer type to use.

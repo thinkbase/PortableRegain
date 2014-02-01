@@ -46,7 +46,7 @@
        | German example
        +-->
       <sortResults showsortfieldcontent="false">
-        <sortEntry id='1' description='相似度' order='desc' field='relevance' />
+        <sortEntry id='1' description='Relevance' order='desc' field='relevance' />
         <!--sortEntry id='2' description='Dokumentendatum aufsteigend' order='asc' field='last-modified' />
         <sortEntry id='3' description='Dokumentendatum absteigend' order='desc' field='last-modified' />
         <sortEntry id='4' description='Dokumentengröße aufsteigend' order='asc' field='size' />
@@ -133,7 +133,7 @@
     <!-- The search index 'main' -->
     <index name="main" default="true" isparent="true">
       <!-- The directory where the index is located -->
-      <dir>G:\research\doc-center\@test\regain\runtime\crawler\searchindex</dir>
+      <dir>${PROFILE_HOME}/data</dir>
     </index>
     <!-- 
      | A child index of 'main' 
