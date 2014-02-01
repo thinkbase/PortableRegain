@@ -54,6 +54,8 @@ shift
 goto setArgs
 :doneSetArgs
 
-call "%EXECUTABLE%" start %CMD_LINE_ARGS%
+:: Changed by PortableRegain - start tomcat in same console
+::call "%EXECUTABLE%" start %CMD_LINE_ARGS%
+call "%EXECUTABLE%" run %CMD_LINE_ARGS%
 
 :end

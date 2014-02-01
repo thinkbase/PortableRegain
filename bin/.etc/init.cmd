@@ -68,6 +68,9 @@ call "!SHELL_ROOT!/fart" -V "!PROFILE_HOME!/.work\*.*" ${PORTABLE_ROOT} !PORTABL
 call "!SHELL_ROOT!/fart" -V "!PROFILE_HOME!/.work\*.*" ${PORTABLE_ROOT_URL} !PORTABLE_ROOT_URL_4_CMDLINE!
 :: data folder, to store the search index
 mkdir "!PROFILE_HOME!/data"
+:: Copy SearchConfiguration.xml into regain webapp related folders
+mkdir "!REGAIN_HOME!/runtime/search/webapps/.temp"
+xcopy /Y/F "!PROFILE_HOME!/.work/SearchConfiguration.xml" "!REGAIN_HOME!/runtime/search/webapps/.temp"
 :: PATH
 set PATH=!JAVA_HOME!/bin;%PATH%
 
