@@ -74,9 +74,9 @@
     <prefix>http://www.mydomain.de/some/dynamic/content/</prefix>
     <regex>.*/backup/[^/]*</regex>
     -->
-    <regex>\.git.*</regex>
-    <regex>\.svn.*</regex>
-    <regex>\.cvs.*</regex>
+    <regex>.*\/\.git.*</regex>
+    <regex>.*\/\.svn.*</regex>
+    <regex>.*\/\.cvs.*</regex>
     
     <regex>.*/wiki/Trac.*</regex>
     <regex>.*/wiki/Wiki.*</regex>
