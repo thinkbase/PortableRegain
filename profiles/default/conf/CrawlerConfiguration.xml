@@ -44,6 +44,7 @@
      -->
     <start parse="true" index="true">${PORTABLE_ROOT_URL}/../AdminShells</start>
     <!-- HTML parsing -->
+    <start parse="true" index="true">http://thinkbase.net/main</start>
     <start parse="true" index="true">http://thinkbase.net/trac</start>
     <!-- IMAP post box parsing -->
     <!--
@@ -59,7 +60,7 @@
  +-->
   <whitelist>
     <prefix>file://</prefix>
-    <prefix>http://thinkbase.net/trac</prefix>
+    <prefix>http://thinkbase.net/</prefix>
   </whitelist>
 
 
@@ -86,7 +87,7 @@
     <regex>.*\?limit.*</regex>
     <regex>.*\?cversion.*</regex>
     <regex>.*\?parents.*</regex>
-    <regex>.*\?format.*</regex>
+    <!-- <regex>.*\?format.*</regex>  -->
     <regex>.*\?order.*</regex>
     <regex>.*\?desc.*</regex>
     <regex>.*\?annotate.*</regex>
