@@ -42,7 +42,7 @@
       NOTE: In Windows, ":" must be encoded to "%3A", for example
     <start parse="true" index="true">file://g%3A/thinkbase.net/github/AdminShells</start>
      -->
-    <start parse="true" index="true">${PORTABLE_ROOT_URL}/../AdminShells</start>
+    <start parse="true" index="true">${PORTABLE_ROOT_URL}/bin</start>
     <!-- HTML parsing -->
     <start parse="true" index="true">http://thinkbase.net/main</start>
     <start parse="true" index="true">http://thinkbase.net/trac</start>
@@ -99,6 +99,7 @@
     <regex>.*\/reset_password.*</regex>
     <regex>.*\/newticket.*</regex>
     <regex>.*\/search.*</regex>
+    <regex>.*\/raw-attachment.*</regex>
 
     <prefix>http://thinkbase.net/main/changeset/</prefix>
     <prefix>http://thinkbase.net/trac/changeset/</prefix>
