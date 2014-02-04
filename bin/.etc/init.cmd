@@ -37,6 +37,12 @@ set IK_HOME=!PORTABLE_ROOT!/bin/.runtime/IKAnalyzer
 :: IKAnalyzer extension home
 set IK_EXT_HOME=!PORTABLE_ROOT!/bin/.extension/IKAnalyzer
 
+:: TOMCAT_PORT_HTTP, Tomcat http port
+if "%TOMCAT_PORT_HTTP%"=="" (
+    set TOMCAT_PORT_HTTP=8080
+    echo ^>^>^> Environment variable [TOMCAT_PORT_HTTP] is empty, use the defaule value [!TOMCAT_PORT_HTTP!]
+)
+
 :: ============================================================
 :: Check necessary files
 :: ============================================================
@@ -83,11 +89,12 @@ echo * PortableRegain startup ...
 echo ^>^>^> PORTABLE_ROOT=!PORTABLE_ROOT!
 echo ^>^>^> PROFILE_HOME =!PROFILE_HOME!
 echo.
-echo ^>^>^> JAVA_HOME    =!JAVA_HOME!
-echo ^>^>^> REGAIN_HOME  =!REGAIN_HOME!
-echo ^>^>^> TOMCAT_HOME  =!TOMCAT_HOME!
-echo ^>^>^> IK_HOME      =!IK_HOME!
-echo ^>^>^> IK_EXT_HOME  =!IK_EXT_HOME!
+echo ^>^>^> JAVA_HOME       =!JAVA_HOME!
+echo ^>^>^> REGAIN_HOME     =!REGAIN_HOME!
+echo ^>^>^> TOMCAT_HOME     =!TOMCAT_HOME!
+echo ^>^>^> TOMCAT_PORT_HTTP=!TOMCAT_PORT_HTTP!
+echo ^>^>^> IK_HOME         =!IK_HOME!
+echo ^>^>^> IK_EXT_HOME     =!IK_EXT_HOME!
 echo ============================================================
 echo.
 :: Mark the initialization process finished successfully
