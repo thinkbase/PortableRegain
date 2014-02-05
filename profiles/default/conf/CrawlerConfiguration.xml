@@ -100,6 +100,9 @@
     <regex>.*\/newticket.*</regex>
     <regex>.*\/search.*</regex>
     <regex>.*\/raw-attachment.*</regex>
+    <regex>.*\/zip-attachment.*</regex>
+
+    <regex>.*\/browser.*</regex>
 
     <prefix>http://thinkbase.net/main/changeset/</prefix>
     <prefix>http://thinkbase.net/trac/changeset/</prefix>
