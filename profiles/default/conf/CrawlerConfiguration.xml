@@ -96,6 +96,7 @@
     <regex>.*\/report.*</regex>
     <regex>.*\/timeline.*</regex>
     <regex>.*\/login.*</regex>
+    <regex>.*\/prefs.*</regex>
     <regex>.*\/reset_password.*</regex>
     <regex>.*\/newticket.*</regex>
     <regex>.*\/search.*</regex>
@@ -103,6 +104,7 @@
     <regex>.*\/zip-attachment.*</regex>
 
     <regex>.*\/browser.*</regex>
+    <regex>.*\/HEAD.*</regex>
 
     <prefix>http://thinkbase.net/main/changeset/</prefix>
     <prefix>http://thinkbase.net/trac/changeset/</prefix>

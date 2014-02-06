@@ -1,1 +1,7 @@
-This is the default profile folder, as an example
+This is the default profile folder, as an example.
+
+For a specified profile, the variables should always like:
+================================================================================
+set JAVA_HOME=E:/Doc-Center/jdk-7u45-windows-x64
+set PROFILE_HOME=E:/Doc-Center/profile-test
+set JAVA_OPTS=-Xmx1500m -XX:MaxNewSize=512m -verbose:gc
