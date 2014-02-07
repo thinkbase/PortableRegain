@@ -44,7 +44,6 @@
      -->
     <start parse="true" index="true">${PORTABLE_ROOT_URL}/bin</start>
     <!-- HTML parsing -->
-    <start parse="true" index="true">http://thinkbase.net/main</start>
     <start parse="true" index="true">http://thinkbase.net/trac</start>
     <!-- IMAP post box parsing -->
     <!--
@@ -60,7 +59,7 @@
  +-->
   <whitelist>
     <prefix>file://</prefix>
-    <prefix>http://thinkbase.net/</prefix>
+    <prefix>http://thinkbase.net/trac</prefix>
   </whitelist>
 
 
@@ -81,16 +80,6 @@
     <regex>.*/wiki/Trac.*</regex>
     <regex>.*/wiki/Wiki.*</regex>
     <regex>.*/wiki/Zh.*</regex>
-    <regex>.*\?action.*</regex>
-    <regex>.*\?version.*</regex>
-    <regex>.*\?rev.*</regex>
-    <regex>.*\?limit.*</regex>
-    <regex>.*\?cversion.*</regex>
-    <regex>.*\?parents.*</regex>
-    <!-- <regex>.*\?format.*</regex>  -->
-    <regex>.*\?order.*</regex>
-    <regex>.*\?desc.*</regex>
-    <regex>.*\?annotate.*</regex>
     <regex>.*\?.*</regex>
     <regex>.*\/query.*</regex>
     <regex>.*\/report.*</regex>
@@ -100,13 +89,25 @@
     <regex>.*\/reset_password.*</regex>
     <regex>.*\/newticket.*</regex>
     <regex>.*\/search.*</regex>
-    <regex>.*\/raw-attachment.*</regex>
     <regex>.*\/zip-attachment.*</regex>
-
-    <regex>.*\/browser.*</regex>
     <regex>.*\/HEAD.*</regex>
 
-    <prefix>http://thinkbase.net/main/changeset/</prefix>
+    <!--
+    <regex>.*\?action.*</regex>
+    <regex>.*\?version.*</regex>
+    <regex>.*\?rev.*</regex>
+    <regex>.*\?limit.*</regex>
+    <regex>.*\?cversion.*</regex>
+    <regex>.*\?parents.*</regex>
+    <regex>.*\?order.*</regex>
+    <regex>.*\?desc.*</regex>
+    <regex>.*\?annotate.*</regex>
+    <regex>.*\?format.*</regex>
+
+    <regex>.*\/browser.*</regex>
+    <regex>.*\/raw-attachment.*</regex>
+    -->
+
     <prefix>http://thinkbase.net/trac/changeset/</prefix>
   </blacklist>
 

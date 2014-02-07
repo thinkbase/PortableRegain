@@ -63,6 +63,10 @@ for %%F in (
 :: ============================================================
 :: Other preparations
 :: ============================================================
+:: Tomcat's temporary folders
+mkdir "!TOMCAT_HOME!/temp"
+mkdir "!TOMCAT_HOME!/work"
+mkdir "!TOMCAT_HOME!/logs"
 :: work folder, to store some temporary file
 mkdir "!PROFILE_HOME!/.work"
 :: Copy configuration files into .work and replace variables
