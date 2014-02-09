@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration [
+  <!ENTITY amp "&#x26;">
+  <!ENTITY lt "&#x3C;">
+  <!ENTITY minus "&#45;">
+]>
+
+<configuration>
+  <startlist>
+    <start parse="true" index="true">http://thinkbase.net/main/browser/AdminShells</start>
+  </startlist>
+
+  <whitelist>
+    <prefix>http://thinkbase.net/main/browser/AdminShells</prefix>
+    <prefix>http://thinkbase.net/main/export/AdminShells</prefix>
+  </whitelist>
+
+  <blacklist>
+    <regex>.*\?.*</regex>
+  </blacklist>
+
+  <searchIndex>
+    <dir>${CRAWLER_INDEX_DIR}</dir>
+    <analyzerType>net.thinkbase.regain.analyzer.lucene.StopwordsCompatibleIKAnalyzer</analyzerType>
+    <stopwordList>
+      a able about across after all almost also am among an and any are as at be
+      because been but by can cannot could dear did do does either else ever every
+      for from get got had has have he her hers him his how however i if in into is
+      it its just least let like likely may me might most must my neither no nor
+      not of off often on only or other our own rather said say says she should
+      since so some than that the their them then there these they this tis to too
+      twas us wants was we were what when where which while who whom why will with
+      would yet you your
+    </stopwordList>
+    <exclusionList></exclusionList>
+    <valuePrefetchFields>mimetype</valuePrefetchFields>
+    <storeContentForPreview>true</storeContentForPreview>
+  </searchIndex>
+
+  <preparatorList>
+    <preparator enabled="true"><class>.PoiMsOfficePreparator</class></preparator>
+    <preparator enabled="true"><class>.SwingRtfPreparator</class></preparator>
+    <preparator enabled="true"><class>.FilenamePreparator</class></preparator>
+    <preparator priority="-10">
+      <class>.EmptyPreparator</class>
+      <urlPattern>.*</urlPattern>
+    </preparator>
+
+    <preparator enabled="false"><class>.IfilterPreparator</class></preparator>
+    <preparator enabled="false"><class>.JacobMsExcelPreparator</class></preparator>
+    <preparator enabled="false"><class>.JacobMsWordPreparator</class></preparator>
+    <preparator enabled="false"><class>.JacobMsPowerPointPreparator</class></preparator>
+    <preparator enabled="false"><class>.SimpleRtfPreparator</class></preparator>
+    <preparator enabled="false"><!--This preparator may be used if you have an external program that can extract text. It's disabled by default.-->
+      <class>.ExternalPreparator</class>
+      <config>
+        <section name="command">
+          <param name="urlPattern">\.ps$</param>
+          <param name="commandLine">ps2ascii ${filename}</param>
+          <param name="checkExitCode">false</param>
+        </section>
+      </config>
+    </preparator>
+  </preparatorList>
+
+  <crawlerPluginList>
+  	<crawlerPlugin enabled="false">
+  	  <class>net.sf.regain.crawler.plugin.plugin.FilesizeFilterPlugin</class> <!-- TODO: Allow .FilesizeFilterPlugin. For that, we need to modify PreparatorSettings -->
+  	  <config>
+  	    <section name="limits">
+   	      <param name="filesizeMinimumBytes">1</param> <!-- 0: No minimum size. -->
+  	      <param name="filesizeMaximumBytes">-1</param> <!-- -1: No maximum size. -->
+  	    </section>
+  	  </config>
+  	</crawlerPlugin>
+  </crawlerPluginList>
+
+  <auxiliaryFieldList>
+  <!-- Don't change these two fields. But you may add your own. -->
+    <auxiliaryField name="extension" regexGroup="1" toLowercase="true">
+      <regex>\.([^\.]*)$</regex>
+    </auxiliaryField>
+    <auxiliaryField name="location" regexGroup="1" store="false" tokenize="true">
+      <regex>^(.*)$</regex>
+    </auxiliaryField>
+    <!--auxiliaryField name="mimetype" regexGroup="1" >
+      <regex>^()$</regex>
+    </auxiliaryField-->
+  </auxiliaryFieldList>
+
+</configuration>

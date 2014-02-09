@@ -2,7 +2,7 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 :: Initialize system variables and check configuration
-call "%~dp0.etc\init.cmd"
+call "%~dp0.etc\init.cmd" /TOMCAT
 IF %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
 :: Deploy regain web-app
