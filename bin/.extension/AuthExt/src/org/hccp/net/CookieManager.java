@@ -1,3 +1,6 @@
+/*
+ * CookieManager from http://www.hccp.org/java-net-cookie-how-to.html
+ */
 package org.hccp.net;
 
 

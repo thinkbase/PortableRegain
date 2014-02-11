@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 
 import net.sf.regain.RegainException;
@@ -52,6 +54,8 @@ import net.sf.regain.util.io.HtmlEntities;
  * @author Thomas Tesche
  */
 public class CrawlerToolkit {
+  //PORTABLE-PATCH: Thee Global CookieManager
+  private static org.hccp.net.CookieManager cookieMgr = new org.hccp.net.CookieManager();
 
   /** The logger for this class */
   private static Logger mLog = Logger.getLogger(CrawlerToolkit.class);
@@ -229,9 +233,22 @@ public class CrawlerToolkit {
         String charset = RegainToolkit.getSystemDefaultEncoding() + ",utf-8,*";
         hconn.setRequestProperty("Accept-Charset", charset);
 
+        //PORTABLE-PATCH: Support Basic authentication
+        if (url.getUserInfo() != null) {
+            String basicAuth = "Basic " + new String(new Base64().encode(url.getUserInfo().getBytes()));
+            basicAuth = basicAuth.replace("\r\n", "");
+            hconn.setRequestProperty("Authorization", basicAuth);
+        }
+        
+        //PORTABLE-PATCH: Apply cookies
+        cookieMgr.setCookies(hconn);
+
         // Check the response code
         int response = hconn.getResponseCode();
         boolean redirect = (response >= 300 && response <= 399);
+        
+        //PORTABLE-PATCH: Read and remember cookies
+        cookieMgr.storeCookies(hconn);
 
         // In the case of a redirect, we want to actually change the URL
         // that was input to the new, redirected URL
