@@ -99,7 +99,7 @@ public class CookieManager {
                 // in the string is the cookie name and value, so let's handle
                 // them as a special case: 
                 
-                if (st.hasMoreTokens()) {
+                if (st.hasMoreTokens() ) {
                     String token  = st.nextToken();
                     String name = token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR));
                     String value = token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length());
@@ -109,8 +109,14 @@ public class CookieManager {
     
                 while (st.hasMoreTokens()) {
                     String token  = st.nextToken();
-                    cookie.put(token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR)).toLowerCase(),
-                     token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length()));
+                    /*
+                     * Sometime the cookies like "trac_form_token=180fee6e549c6f6c6291e64d; httponly; Path=/env1",
+                     * which has element without "=", and should cause StringIndexOutOfBoundsException.
+                     */
+                    if ((token.indexOf(NAME_VALUE_SEPARATOR)>=0)){
+                        cookie.put(token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR)).toLowerCase(),
+                                token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length()));
+                    }
                 }
             }
         }
