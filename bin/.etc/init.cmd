@@ -40,6 +40,9 @@ set IK_EXT_HOME=!PORTABLE_ROOT!/bin/.extension/IKAnalyzer
 :: Default configuration files
 set DEFAULT_CONF=!PORTABLE_ROOT!/bin/.extension/DefaultConf
 
+:: Authentication extension home
+set AUTH_EXT_HOME=!PORTABLE_ROOT!/bin/.extension/AuthExt
+
 :: TOMCAT_PORT_HTTP, Tomcat http port
 if "%TOMCAT_PORT_HTTP%"=="" (
     set TOMCAT_PORT_HTTP=8080
@@ -84,6 +87,13 @@ if "%1"=="/CRAWLER" (
         exit /B -1
     )
 )
+
+:: ============================================================
+:: authentication.properties MUST copy to regain/runtime/crawler/conf
+:: ============================================================
+mkdir "!REGAIN_HOME!/runtime/crawler/conf"
+echo. > "!REGAIN_HOME!/runtime/crawler/conf/authentication.properties"
+xcopy /Y/F "!PROFILE_HOME!/conf/authentication.properties" "!REGAIN_HOME!/runtime/crawler/conf/authentication.properties"
 
 :: ============================================================
 :: Other preparations
@@ -133,6 +143,7 @@ echo ^>^>^> TOMCAT_PORT_HTTP=!TOMCAT_PORT_HTTP!
 echo ^>^>^> IK_HOME         =!IK_HOME!
 echo ^>^>^> IK_EXT_HOME     =!IK_EXT_HOME!
 echo ^>^>^> DEFAULT_CONF    =!DEFAULT_CONF!
+echo ^>^>^> AUTH_EXT_HOME   =!AUTH_EXT_HOME!
 echo ============================================================
 echo.
 :: Mark the initialization process finished successfully
