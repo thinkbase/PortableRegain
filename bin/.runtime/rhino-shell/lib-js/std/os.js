@@ -31,12 +31,16 @@ define(function () {
             if (null == tmp){
                 tmp = defaultValue;
             }
+            //If tmp is java string, convert it to js string, but other object shouldn't convert automatically
+            if (null!=tmp && tmp instanceof java.lang.String){
+                tmp = tmp + "";
+            }
             return tmp;
         }
         
         var _replaceWithSystemProp = function(string){
             var result;
-            require (["std/utils/replacer"], function(replacer) {
+            require (["std/utils/misc"], function(replacer) {
                 result = replacer.replacePlaceHolder(string, function(key){
                     return getProp(key);
                 });
@@ -55,7 +59,7 @@ define(function () {
                     path[i] = path[i].replace(/^\\/, "");   //The start "\"
                     path[i] = path[i].replace(/\\$/, "");   //The end "\"
                 }
-                path = path.join(java.io.File.separator);
+                path = path.join(Packages.java.io.File.separator);
             }
             //Replace ${XXX} in path with java system property or environment variable
             path = _replaceWithSystemProp(path);
@@ -115,11 +119,27 @@ define(function () {
             }
         }
         
+        /** Same as fileExists but return the missing file/folders as an array */
+        var findMissingFiles = function(path){
+            if (! path) return [];
+            if (! path.join) path = [path];
+            var result = [];
+            require (["std/utils/misc"], function(misc) {
+                misc.arrayForEach(path, function(f){
+                    if (! fileExists(f)){
+                        result[result.length] = f;
+                    }
+                });
+            });
+            return result;
+        }
+        
         _export = {
             isWindows:isWindows(), isLinux:isLinux(), isMac:isMac(), isUnix:isUnix(), isSolaris:isSolaris(),
             normalizePath: normalizePath,
             getProp: getProp,
-            fileExists: fileExists
+            fileExists: fileExists,
+            findMissingFiles: findMissingFiles
         }
     });
     return _export;

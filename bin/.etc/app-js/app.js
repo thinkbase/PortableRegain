@@ -3,5 +3,7 @@ require.config({
 });
 
 require (["app/crawler"], function(crawler) {
-    print(' > modules [crawler] loaded');
+    
 });
+
+print("Application finished.");

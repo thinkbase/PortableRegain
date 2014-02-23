@@ -1,32 +1,41 @@
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-:: Initialize system variables and check configuration
-call "%~dp0.etc\init.cmd" /CRAWLER
-IF %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
-
-pushd "!REGAIN_HOME!/runtime/crawler"
-TITLE Regain crawler - %CHILD_INDEX_CODE%
-java %JAVA_OPTS% -Dfile.encoding=UTF-8 -cp !AUTH_EXT_HOME!/bin;!IK_EXT_HOME!/bin;!IK_HOME!/IKAnalyzer2012_u6.jar;!REGAIN_HOME!/runtime/crawler/regain-crawler.jar net.sf.regain.crawler.Main -config "!CRAWLER_WORKSPACE!/CrawlerConfiguration.xml" -logConfig "!CRAWLER_WORKSPACE!/log4j.properties"
-
-set _ERROR_=%ERRORLEVEL%
-echo.
-:: ERRORCODE=1 means non-fatal errors, =100 means fatal errors
-IF %_ERROR_% NEQ 0 (
-    echo ^>^>^> Crawler finished with errors, ERRORLEVEL=%_ERROR_% !
-    IF %_ERROR_% NEQ 1 (
-        echo ^>^>^> Crawler finished with fatal errors, ERRORLEVEL=%_ERROR_% !
-        echo. & pause
-        exit /B -1
-    )
-)
-
-if NOT exist "!CRAWLER_INDEX_DIR!/new" (
-    echo ^>^>^> Crawler finished with ERROR: [!CRAWLER_INDEX_DIR!/new] not created !
-    echo. & pause
-    exit /B -1
-)
-
+:: SHELL_ROOT - Location(Path) of this batch file
+pushd "%~dp0"
+set SHELL_ROOT=!cd!
 popd
+:: PORTABLE_ROOT - The root path of PortableRegain
+set PORTABLE_ROOT=!SHELL_ROOT!/..
+pushd "!PORTABLE_ROOT!"
+set PORTABLE_ROOT=!cd!
+popd
+
+:: PROFILE_HOME - Profile folder
+set PROFILE_HOME=%1
+set PROFILE_HOME=%PROFILE_HOME:"=%
+if "%PROFILE_HOME%"=="" (
+    echo ^>^>^> Environment variable [PROFILE_HOME] is empty, use the defaule value.
+    echo ^ ^ ^> This variable should be first argument when calling "%0".
+)
+
+:: CHILD_INDEX_CODE_LIST - code list of more the one child-index
+set CHILD_INDEX_CODE_LIST=%2
+set CHILD_INDEX_CODE_LIST=%CHILD_INDEX_CODE_LIST:"=%
+if "%CHILD_INDEX_CODE_LIST%"=="" (
+    echo ^>^>^> Environment variable [CHILD_INDEX_CODE_LIST] is empty, use the defaule value.
+    echo ^ ^ ^> This variable should be second argument when calling "%0".
+)
+
+:: JAVA_HOME
+if "%JAVA_HOME%"=="" (
+    set JAVA_HOME=!PORTABLE_ROOT!/bin/.runtime/jdk
+    echo ^>^>^> Environment variable [JAVA_HOME] is empty, use the defaule value [!JAVA_HOME!]
+)
+
+:: Call rhino-shell
+set CLASSPATH=!PORTABLE_ROOT!\bin\.etc\app-js;!PORTABLE_ROOT!\bin\.runtime\rhino-shell\lib-js;!PORTABLE_ROOT!\bin\.runtime\rhino-shell\lib-java\*;
+echo "!JAVA_HOME!\bin\java" -cp "!CLASSPATH!" net.thinkbase.shell.rhino.Main
+call "!JAVA_HOME!\bin\java" -cp "!CLASSPATH!" net.thinkbase.shell.rhino.Main
 
 ENDLOCAL
