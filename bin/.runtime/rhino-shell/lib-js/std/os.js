@@ -48,15 +48,25 @@ define(function () {
             return result;
         }
         
-        /** Normalize a path, based on the AppHome */
-        var normalizePath = function(path){
+        /** The root folder, default is the path of app.js */
+        var root = sys.home;
+        
+        /** Change root folder */
+        var chroot = function(newRoot){
+            var newRoot = normalizePath(newRoot);
+            root = newRoot;
+        }
+        /** Normalize a path with the specified basePath(parnet folder), or based on the AppRoot */
+        var normalizePath = function(path, basePath){
             if (null==path) path="";
             if (path.join){ //If path is Array, join them
                 for (var i=0; i<path.length; i++){
                     path[i] = path[i]+"";   //Force to javascript string
-                    path[i] = path[i].replace(/^\//, "");   //The start "/"
+                    if (i>0){   //Remain heading "/" for first path element 
+                        path[i] = path[i].replace(/^\//, "");   //The start "/"
+                        path[i] = path[i].replace(/^\\/, "");   //The start "\"
+                    }
                     path[i] = path[i].replace(/\/$/, "");   //The end "/"
-                    path[i] = path[i].replace(/^\\/, "");   //The start "\"
                     path[i] = path[i].replace(/\\$/, "");   //The end "\"
                 }
                 path = path.join(Packages.java.io.File.separator);
@@ -71,7 +81,10 @@ define(function () {
             if ( isWindows() && (path.length()>1) && (path.substr(1,1)==":") ) isAbs = true;
             //Calculate the full path
             if (! isAbs){
-                path = sys.home + java.io.File.separator + path;
+                if (! basePath) {
+                    basePath = root;
+                }
+                path = basePath + java.io.File.separator + path;
             }
             //Get normalized Path string
             var file = new java.io.File(path);
@@ -134,12 +147,34 @@ define(function () {
             return result;
         }
         
+        /** Read text file, return null if file not found */
+        var readTextFile = function(file){
+            var FileUtils = Packages.org.apache.commons.io.FileUtils;
+            var f = new Packages.java.io.File(file);
+            if (f.exists()){
+                var s = FileUtils.readFileToString(f, "UTF-8");
+                return s + "";
+            }else{
+                return null;
+            }
+        }
+        
+        /** Write text file */
+        var writeTextFile = function(file, text){
+            var FileUtils = Packages.org.apache.commons.io.FileUtils;
+            var f = new Packages.java.io.File(file);
+            FileUtils.writeStringToFile(f, new java.lang.String(text+""), "UTF-8");
+        }
+        
         _export = {
             isWindows:isWindows(), isLinux:isLinux(), isMac:isMac(), isUnix:isUnix(), isSolaris:isSolaris(),
             normalizePath: normalizePath,
+            chroot: chroot,
             getProp: getProp,
             fileExists: fileExists,
-            findMissingFiles: findMissingFiles
+            findMissingFiles: findMissingFiles,
+            readTextFile: readTextFile,
+            writeTextFile: writeTextFile
         }
     });
     return _export;

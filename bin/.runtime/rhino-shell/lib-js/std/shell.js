@@ -32,8 +32,29 @@ define(function () {
         });
     }
     
+    /** Start a process with given environment variables */
+    var startProcess = function(cmdLine, envVars){
+        var ProcessBuilder = Packages.java.lang.ProcessBuilder;
+        var VerboseProcess = Packages.com.jcabi.log.VerboseProcess;
+        require (["std/os"], function(os) {
+            var pb;
+            if (os.isWindows){
+                pb = new ProcessBuilder("cmd", "/c", cmdLine);
+            }else{
+                pb = new ProcessBuilder("/bin/bash", "-c", ". " + cmdLine);
+            }
+            var env = pb.environment();
+            //Put env into environment variables
+            for(var o in envVars){
+                env.put(new java.lang.String(o+""), new java.lang.String(envVars[o]+""));
+            }
+            (new VerboseProcess(pb)).stdoutQuietly();
+        });
+    }
+    
     return {
         mkdir: mkdir,
-        copyTemplateFile: copyTemplateFile
+        copyTemplateFile: copyTemplateFile,
+        startProcess: startProcess
     }
 });
